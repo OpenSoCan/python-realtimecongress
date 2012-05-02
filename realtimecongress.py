@@ -1,15 +1,15 @@
 """ Python library for interacting with the Real Time Congress API. """
 
-__author__ = "Dan Drinkard <ddrinkard@sunlightfoundation.com>"
-__version__ = open('VERSION').read()
-__copyright__ = "Copyright (c) 2011 Sunlight Labs"
-__license__ = "BSD"
-
 import os
 import requests
 import simplejson as json
 
 from urllib import urlencode
+
+__author__ = "Dan Drinkard <ddrinkard@sunlightfoundation.com>"
+__version__ = open('%s/VERSION' % os.path.abspath(os.path.dirname(__file__))).read()
+__copyright__ = "Copyright (c) 2011 Sunlight Labs"
+__license__ = "BSD"
 
 
 class RTCResponse(object):
