@@ -36,7 +36,7 @@ class RTC(object):
     def _call(method, **params):
         if RTC.apikey is None:
             try:
-                RTC.apikey = open('~/.sunlight.key').read().strip()
+                RTC.apikey = open('%s/.sunlight.key' % os.environ['HOME']).read().strip()
             except IOError, e:
                 RTC.apikey = os.environ.get('SUNLIGHT_API_KEY', None)
                 if RTC.apikey is None:
