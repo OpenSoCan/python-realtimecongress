@@ -10,6 +10,7 @@ import simplejson as json
 
 from urllib import urlencode
 
+
 class RTCResponse(object):
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
@@ -17,8 +18,10 @@ class RTCResponse(object):
     def __repr__(self):
         return '%s(%r)' % (self.__class__.__name__, self.__dict__)
 
+
 class RTCError(Exception):
     """ Exception to wrap API errors """
+
 
 class RTC(object):
     apikey = None
@@ -45,7 +48,7 @@ class RTC(object):
             'params': urlencode(params)
         }
 
-        with requests.session(headers={'X-APIKEY':RTC.apikey}) as connection:
+        with requests.session(headers={'X-APIKEY': RTC.apikey}) as connection:
             rsp = connection.get(RTC.baseurl.format(**context))
             rsp.raise_for_status()
 
@@ -64,6 +67,10 @@ class RTC(object):
     @staticmethod
     def getBills(**params):
         return RTC._call('bills', **params)
+
+    @staticmethod
+    def getUpcomingBills(**params):
+        return RTC._call('upcoming_bills', **params)
 
     @staticmethod
     def getVotes(**params):
