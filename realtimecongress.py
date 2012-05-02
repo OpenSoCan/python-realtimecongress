@@ -5,6 +5,7 @@ __version__ = open('VERSION').read()
 __copyright__ = "Copyright (c) 2011 Sunlight Labs"
 __license__ = "BSD"
 
+import os
 import requests
 import simplejson as json
 
@@ -34,7 +35,12 @@ class RTC(object):
     @staticmethod
     def _call(method, **params):
         if RTC.apikey is None:
-            raise RTCError('Missing Sunlight apikey. Get one at services.sunlightlabs.com')
+            try:
+                RTC.apikey = open('~/.sunlight.key').read().strip()
+            except IOError, e:
+                RTC.apikey = os.environ.get('SUNLIGHT_API_KEY', None)
+                if RTC.apikey is None:
+                    raise RTCError('Missing Sunlight apikey. Get one at services.sunlightlabs.com')
 
         # json-scrub some values for mongo queries
         for key in params.keys():
